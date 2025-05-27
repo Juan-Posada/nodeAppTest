@@ -1,4 +1,5 @@
 const db = require('../models');
+const category = require('../models/category');
 
 const getAllArticles = async () => {
     try {
@@ -10,32 +11,39 @@ const getAllArticles = async () => {
                 as: "User",
                 attributes: ["id", "name", "email"],
             },
+            atributtes: {
+                exclude: ["createdAt", "updatedAt"]
+            }, 
+            include : ["categories"]
         });
         return Articles;
     } catch (error) {
-        return error.message || "Failed to get Articles";
+        return error.message || "Fallo al traer artículos"
     }
-};
+}
 
 const getArticle = async (id) => {
     try {
         let Article = await db.Article.findByPk(id);
         return Article;
     } catch (error) {
-        throw { status: 500, message: error.message || "Failed to get Article" };
+        throw { status: 500, message: error.message || "Fallo al traer artículo" };
     }
 };
 
-const createArticle = async (title, content, UserId) => {
+const createArticle = async (title, content, UserId, categoryIds) => {
     try {
         let newArticle = await db.Article.create({
             title,
             content,
-            UserId,
+            UserId
         });
+        if (newArticle) {
+            await newArticle.setCategories(categoryIds)
+        }
         return newArticle;
     } catch (error) {
-        return error.message || "Article could not be created";
+        return error.message || "El artículo no pudo ser creado";
     }
 };
 
@@ -52,7 +60,7 @@ const updateArticle = async (id, title, content, idUser) => {
         });
         return updatedArticle;
     } catch (error) {
-        return error.message || "Article could not be updated";
+        return error.message || "El artículo no pudo ser actualizado";
     }
 };
 
@@ -65,7 +73,7 @@ const deleteArticle = async (id) => {
         });
         return deletedArticle;
     } catch (error) {
-        return error.message || "Article could not be deleted";
+        return error.message || "El artículo no pudo ser eliminado";
     }
 };
 

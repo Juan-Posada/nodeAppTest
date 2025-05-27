@@ -13,6 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Article.belongsTo(models.User)
       models.User.hasMany(Article)
+
+      // Un artículo puede pertenencer a mu chas categorías
+      Article.belongsToMany(models.Category, {
+        through: 'articleCategories', 
+        as: "categories"
+      })
     }
   }
   Article.init({

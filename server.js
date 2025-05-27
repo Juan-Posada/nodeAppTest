@@ -20,7 +20,9 @@ app.use(bodyParser.json()) //Permite recibir solicitudes en json
 // Rutas de usuarios para la V1 del API
 app.use('/api/v1/users', require('./api/v1/user.routes'))
 // Rutas de articulos para la V1 del API
-app.use('/api/v1/articles', require('./api/v1/routes/articles.routes'));
+app.use('/api/v1/articles', require('./api/v1/article.routes'));
+// Rutas de articulos para la V1 del API
+app.use('/api/v1/categories', require('./api/v1/category.routes'));
 
 // app.get('/', (req, resp) => {
 //     // req  = request  => Es la petición del usuario
