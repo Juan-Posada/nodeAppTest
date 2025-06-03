@@ -22,7 +22,7 @@ const getArticle = async (req, res) => {
 
 const createArticle = async (req, res) => {
     const { body } = req
-    const createdArticle = await Articleservice.createArticle(body.title, body.content, body.UserId, body.categoryIds)
+    const createdArticle = await Articleservice.createArticle(body.title, body.content, body.userId, body.categoryIds)
     
     if(createdArticle)
         res.status(201).send({ status: "OK", data: createdArticle })

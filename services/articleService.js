@@ -31,12 +31,12 @@ const getArticle = async (id) => {
     }
 };
 
-const createArticle = async (title, content, UserId, categoryIds) => {
+const createArticle = async (title, content, userId, categoryIds) => {
     try {
         let newArticle = await db.Article.create({
             title,
             content,
-            UserId
+            userId
         });
         if (newArticle) {
             await newArticle.setCategories(categoryIds)
