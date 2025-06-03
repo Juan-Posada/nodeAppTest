@@ -14,10 +14,10 @@ module.exports = (sequelize, DataTypes) => {
 
       // Un artículo puede pertenencer a mucchas categorías
       Article.belongsToMany(models.Category, {
-        through: 'articleCategories',  // NOMBRE exacto de la Tabla intermedia
-        as: 'categories',              // Nombre del alias para la relación
-        foreignKey: 'articleId', // 👈 minúsculas y snake_case | ERROR CORREGIDO
-        otherKey: 'categoryId'    // 👈 minúsculas y snake_case  | ERROR CORREGIDO
+        through: 'articleCategories',  
+        as: 'categories',              
+        foreignKey: 'articleId', 
+        otherKey: 'categoryId'    
       });
   
 
