@@ -11,14 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Article.belongsTo(models.User)
-      models.User.hasMany(Article)
 
-      // Un artículo puede pertenencer a mu chas categorías
+      // Un artículo puede pertenencer a mucchas categorías
       Article.belongsToMany(models.Category, {
         through: 'articleCategories', 
         as: "categories"
       })
+
+       // Un usuario tiene muchos articulos
+      models.User.hasMany(Article, {
+        foreignKey: 'userId',             // Clave foránea en el modelo
+      });    
+
     }
   }
   Article.init({
